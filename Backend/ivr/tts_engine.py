@@ -18,11 +18,11 @@ def text_to_wav(text: str, filename: str) -> Path:
     """Convert text → WAV. Returns path. Caches result."""
     wav_path = AUDIO_DIR / f"{filename}.wav"
     if wav_path.exists():
-        return wav_path   # already generated
+        return wav_path
 
     mp3_path = AUDIO_DIR / f"{filename}.mp3"
 
-    # Try gTTS (online, Indian English accent)
+    # gTTS works on all platforms (Linux/Windows/Mac)
     try:
         from gtts import gTTS
         tts = gTTS(text=text, lang="en", tld="co.in")
@@ -31,22 +31,23 @@ def text_to_wav(text: str, filename: str) -> Path:
         log.info("TTS (gTTS): %s", wav_path.name)
         return wav_path
     except Exception as e:
-        log.warning("gTTS failed (%s) — trying pyttsx3...", e)
+        log.warning("gTTS failed (%s)", e)
 
-    # Fallback: pyttsx3 (fully offline, Windows SAPI)
-    try:
-        import pyttsx3
-        engine = pyttsx3.init()
-        engine.setProperty("rate", 145)
-        engine.setProperty("volume", 1.0)
-        # Save directly as wav
-        engine.save_to_file(text, str(wav_path))
-        engine.runAndWait()
-        log.info("TTS (pyttsx3 offline): %s", wav_path.name)
-        return wav_path
-    except Exception as e:
-        log.error("All TTS engines failed: %s", e)
-        raise RuntimeError(f"TTS failed for '{filename}': {e}")
+    # pyttsx3 — Windows only, skip on Linux
+    import platform
+    if platform.system() == "Windows":
+        try:
+            import pyttsx3
+            engine = pyttsx3.init()
+            engine.setProperty("rate", 145)
+            engine.save_to_file(text, str(wav_path))
+            engine.runAndWait()
+            log.info("TTS (pyttsx3): %s", wav_path.name)
+            return wav_path
+        except Exception as e:
+            log.warning("pyttsx3 failed (%s)", e)
+
+    raise RuntimeError(f"TTS failed for '{filename}'")
 
 
 def _mp3_to_wav(mp3: Path, wav: Path):
