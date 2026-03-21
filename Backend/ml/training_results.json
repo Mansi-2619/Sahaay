@@ -1,0 +1,62 @@
+{
+  "flood": {
+    "accuracy": 97.08,
+    "samples": 8041,
+    "features": [
+      "rainfall_mm",
+      "humidity_pct",
+      "temperature_c",
+      "wind_speed_kmh",
+      "consecutive_rain_days",
+      "rainfall_7day_sum",
+      "humidity_7day_avg"
+    ],
+    "real_data": true,
+    "trained_at": "2026-03-05T21:46:24.118032"
+  },
+  "earthquake": {
+    "accuracy": 99.0,
+    "samples": 8000,
+    "features": [
+      "seismic_activity",
+      "ground_vibration",
+      "historical_quakes_5yr",
+      "fault_distance_km",
+      "depth_km",
+      "foreshock_count"
+    ],
+    "real_data": false,
+    "trained_at": "2026-03-05T21:46:29.684633"
+  },
+  "heatwave": {
+    "accuracy": 98.2,
+    "samples": 8041,
+    "features": [
+      "temperature_c",
+      "humidity_pct",
+      "heat_index",
+      "consecutive_hot_days",
+      "wind_speed_kmh",
+      "temp_7day_avg",
+      "temp_max_7day"
+    ],
+    "real_data": true,
+    "trained_at": "2026-03-05T21:46:36.339812"
+  },
+  "air_quality": {
+    "accuracy": 96.02,
+    "samples": 8041,
+    "features": [
+      "pm2_5",
+      "pm10",
+      "aqi",
+      "temperature_c",
+      "wind_speed_kmh",
+      "humidity_pct",
+      "temp_7day_avg",
+      "wind_7day_avg"
+    ],
+    "real_data": true,
+    "trained_at": "2026-03-05T21:46:42.829221"
+  }
+}
