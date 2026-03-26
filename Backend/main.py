@@ -131,15 +131,10 @@ app.include_router(prediction_router)
 app.include_router(ivr_router)          # IVR routes at /ivr/*
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "https://sahaay-aoywoli9i-vanshrana2k5s-projects.vercel.app",
-        "https://*.vercel.app",
-    ],
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
 )
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
