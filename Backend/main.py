@@ -129,12 +129,11 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="SAHAAY API", version="3.2", lifespan=lifespan)
 app.include_router(prediction_router)
 app.include_router(ivr_router)          # IVR routes at /ivr/*
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-    allow_credentials=False,
+app.add_middleware(CORSMiddleware,
+  allow_origins=["*"],
+  allow_methods=["*"],
+  allow_headers=["*"],
+  allow_credentials=False,
 )
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
